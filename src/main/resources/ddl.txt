@@ -1,0 +1,10 @@
+CREATE TABLE `log_dtls` (
+	`id` INT(6) NOT NULL,
+	`name` VARCHAR(40) NOT NULL,
+	`actual_shift` VARCHAR(30) NOT NULL,
+	`login_dte` DATE NOT NULL,
+	`login_time` VARCHAR(300),
+	`logoff_time` VARCHAR(300),
+	`comments` VARCHAR(400),
+	PRIMARY KEY (`id`)
+) 
