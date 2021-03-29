@@ -26,7 +26,7 @@ public class LogDetailsController {
 		this.loginDetailsService = loginDetailsService;
 	}
 
-	@GetMapping(value = "/logins", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+	@GetMapping(value = "/logindtls", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
 			MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<List<LoginDetails>> findAllLoginDetails() {
 		List<LoginDetails> logins = loginDetailsService.findAll();
@@ -39,19 +39,19 @@ public class LogDetailsController {
 		}
 	}
 
-	@PostMapping(value = "/logins", consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(value = "/logindtls", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String> saveLoginDetails(@RequestBody LoginDetails login) {
 		String result = loginDetailsService.saveLoginDetails(login);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/logins/{id}")
+	@GetMapping(value = "/logindtls/{id}")
 	public ResponseEntity<LoginDetails> findLoginDetailsById(@PathVariable("id") Integer id) {
 		LoginDetails loginDtls = loginDetailsService.findLoginDetailsById(id);
 		return new ResponseEntity<>(loginDtls, HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/logins", consumes = {MediaType.APPLICATION_JSON_VALUE} )
+	@PutMapping(value = "/logindtls", consumes = {MediaType.APPLICATION_JSON_VALUE} )
 	public ResponseEntity<String> updateLoginDetailsById(@RequestBody LoginDetails login) {
 		String status = loginDetailsService.updateLoginDetailsById(login);
 		return new ResponseEntity<>(status, HttpStatus.OK);
@@ -59,7 +59,7 @@ public class LogDetailsController {
 	
 	
 	
-	@DeleteMapping(value = "/logins/{id}")
+	@DeleteMapping(value = "/logindtls/{id}")
 	public ResponseEntity<String> deleteLoginDetailsById(@PathVariable("id") Integer id) {
 		String status = loginDetailsService.deleteLoginDetailsById(id);
 		return new ResponseEntity<>(status, HttpStatus.OK);

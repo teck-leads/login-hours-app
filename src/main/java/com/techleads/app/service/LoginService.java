@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.techleads.app.dao.LoginDao;
 import com.techleads.app.model.Login;
-import com.techleads.app.model.LoginDetails;
 
 @Service
 public class LoginService {
@@ -29,6 +28,7 @@ public class LoginService {
 
 			return logins;
 		}
+		logins.add(new Login());
 		return logins;
 	}
 

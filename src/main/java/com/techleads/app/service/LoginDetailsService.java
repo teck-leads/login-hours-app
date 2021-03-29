@@ -2,11 +2,11 @@ package com.techleads.app.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.techleads.app.DBQueries;
 import com.techleads.app.dao.LoginDetailsDAO;
 import com.techleads.app.model.LoginDetails;
 
@@ -33,10 +33,14 @@ public class LoginDetailsService {
 
 	public String saveLoginDetails(LoginDetails login) {
 		login.setLoginDate(new Date());
+		
+		getActualShift(login);
+		
 		return loginDetailsDAO.save(login);
 
 	}
 
+	
 	public LoginDetails findLoginDetailsById(Integer id) {
 
 		LoginDetails loginDtls = loginDetailsDAO.findById(id);
@@ -56,5 +60,21 @@ public class LoginDetailsService {
 		return status;
 		
 	}
+	private void getActualShift(LoginDetails login) {
+		if(login.getEmpId()==101) {
+			login.setActualShift(DBQueries.SHIFT_101);
+		}else if(login.getEmpId()==102) {
+			login.setActualShift(DBQueries.SHIFT_102);
+		}else if(login.getEmpId()==103) {
+			login.setActualShift(DBQueries.SHIFT_103);
+		}else if(login.getEmpId()==104) {
+			login.setActualShift(DBQueries.SHIFT_104);
+		}else if(login.getEmpId()==105) {
+			login.setActualShift(DBQueries.SHIFT_105);
+		}else if(login.getEmpId()==106) {
+			login.setActualShift(DBQueries.SHIFT_106);
+		}
+	}
+
 		
 }
