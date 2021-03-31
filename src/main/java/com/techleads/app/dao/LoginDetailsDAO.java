@@ -57,10 +57,16 @@ public class LoginDetailsDAO {
 	}
 	
 	
-	
-	public List<LoginDetails> findAll() {
+	public List<LoginDetails> findAll(String today) {
 		Object[] params= {};
-		List<LoginDetails> loginDtls = this.jdbcTemplate.query(DBQueries.SELECT_ALL_LOG_DTLS,  (resultSet, rowNum) -> {
+		List<LoginDetails> loginDtls = new ArrayList<>();
+		String QUERY=null;
+				if(today==null ||today=="") {
+					QUERY=DBQueries.SELECT_ALL_LOG_DTLS;
+				}else if(today.equals("today")) {
+					QUERY=DBQueries.SELECT_TODAY_ALL_LOG_DTLS;
+				}
+		loginDtls=	this.jdbcTemplate.query(QUERY,  (resultSet, rowNum) -> {
 			LoginDetails log = new LoginDetails();
 			log.setId(resultSet.getInt("ID"));
 			log.setActualShift(resultSet.getString("ACTUAL_SHIFT"));

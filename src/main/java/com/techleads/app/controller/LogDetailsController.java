@@ -29,7 +29,7 @@ public class LogDetailsController {
 	@GetMapping(value = "/logindtls", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
 			MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<List<LoginDetails>> findAllLoginDetails() {
-		List<LoginDetails> logins = loginDetailsService.findAll();
+		List<LoginDetails> logins = loginDetailsService.findAll(null);
 		if (logins.size() > 0) {
 			return new ResponseEntity<>(logins, HttpStatus.OK);
 		} else {
@@ -38,6 +38,21 @@ public class LogDetailsController {
 			return new ResponseEntity<>(logins, HttpStatus.OK);
 		}
 	}
+	
+	
+	@GetMapping(value = "/logindtls/{today}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+			MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<List<LoginDetails>> findAllTodayLoginDetails(@PathVariable("today") String today) {
+		List<LoginDetails> logins = loginDetailsService.findAll(today);
+		if (logins.size() > 0) {
+			return new ResponseEntity<>(logins, HttpStatus.OK);
+		} else {
+			logins = new ArrayList<>();
+			logins.add(new LoginDetails());
+			return new ResponseEntity<>(logins, HttpStatus.OK);
+		}
+	}
+	
 
 	@PostMapping(value = "/logindtls", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String> saveLoginDetails(@RequestBody LoginDetails login) {

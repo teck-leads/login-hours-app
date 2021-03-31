@@ -19,11 +19,11 @@ public class LoginDetailsService {
 		this.loginDetailsDAO = loginDetailsDAO;
 	}
 
-	public List<LoginDetails> findAll() {
+	public List<LoginDetails> findAll(String today) {
 
 		List<LoginDetails> logins = new ArrayList<>();
 
-		logins = loginDetailsDAO.findAll();
+		logins = loginDetailsDAO.findAll(today);
 		if (logins.size() > 0) {
 
 			return logins;

@@ -11,7 +11,6 @@ public class BookController {
 	
 	@GetMapping(value = {"/books"}, produces = {"application/json", "application/xml"})
 	public Book findOne() {
-		
 		Book b=new Book();
 		b.setId(101);
 		b.setName("Spring");
