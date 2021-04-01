@@ -2,17 +2,28 @@ package com.techleads.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techleads.app.dao.LoginDao;
 import com.techleads.app.model.Login;
+import com.techleads.app.model.LoginDetails;
 
 @Service
 public class LoginService {
 
 	private LoginDao loginDao;
+	private LoginDetailsService loginDetailsService;
+	
+	
+	@Autowired
+	public void setLoginDetailsService(LoginDetailsService loginDetailsService) {
+		this.loginDetailsService = loginDetailsService;
+	}
 
 	@Autowired
 	public LoginService(LoginDao loginDao) {
@@ -22,10 +33,14 @@ public class LoginService {
 	public List<Login> findAll() {
 
 		List<Login> logins = new ArrayList<>();
-
+		
 		logins = loginDao.findAll();
 		if (logins.size() > 0) {
-
+			List<LoginDetails> loginDtls = loginDetailsService.findAll(null);
+			logins.forEach(log->{
+				List<LoginDetails> collect = loginDtls.stream().filter(dtl->dtl.getEmpId().equals(log.getId())).collect(Collectors.toList());
+				log.setLogDetails(collect);
+			});
 			return logins;
 		}
 		logins.add(new Login());
